@@ -37,13 +37,14 @@ Reference:
 
 1. Open the Codex app.
 2. Open this project folder.
-3. Make sure your Notion MCP integration is available in Codex.
-4. Open the Automations pane in the Codex sidebar.
-5. Create a recurring automation scheduled for `09:00` every day.
-6. Prefer running it in a background worktree.
-7. Copy the prompt from [`automation_prompt.md`](./automation_prompt.md).
-8. If you know your tasks database URL, append it to the prompt before saving the automation.
-9. Test the prompt once manually before enabling the recurring schedule.
+3. Copy the repository root `.env.example` to the repository root `.env` if you want to store local secrets such as a GitHub personal access token.
+4. Make sure your Notion MCP integration is available in Codex.
+5. Open the Automations pane in the Codex sidebar.
+6. Create a recurring automation scheduled for `09:00` every day.
+7. Prefer running it in a background worktree.
+8. Copy the prompt from [`automation_prompt.md`](./automation_prompt.md).
+9. If you know your tasks database URL, append it to the prompt before saving the automation.
+10. Test the prompt once manually before enabling the recurring schedule.
 
 ### What the automation should do
 
