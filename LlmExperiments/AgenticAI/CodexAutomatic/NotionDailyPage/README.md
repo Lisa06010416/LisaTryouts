@@ -5,6 +5,7 @@ This experiment uses Codex app automation with Notion MCP to create a daily page
 ## What It Does
 
 The daily workflow:
+
 1. gathers recent news focused on Taiwan, the United States, and major global events
 2. filters for reliable economy, market, technology, and AI coverage
 3. generates a concise summary
@@ -13,47 +14,15 @@ The daily workflow:
 Default title format:
 
 ```text
-Daily News a2 YYYY-MM-DD
+Daily News at YYYY-MM-DD
 ```
 
 Default Notion properties:
+
 - `start_date`: today's date
 - `engery`: `Low Energy`
 - `Status`: `Next Action`
 - `Priority`: `Medium Priority`
-
-## Recommended: Codex App Automation
-
-OpenAI's Codex automations documentation says automations:
-- run in the background in the Codex app
-- require the app to be running and the selected project to be available on disk
-- can run either in the local project or in a separate worktree
-- should be tested manually in a regular thread before being scheduled
-
-Reference:
-- https://developers.openai.com/codex/app/automations
-
-### Setup steps
-
-1. Open the Codex app.
-2. Open this project folder.
-3. Copy the repository root `.env.example` to the repository root `.env` if you want to store local secrets such as a GitHub personal access token.
-4. Make sure your Notion MCP integration is available in Codex.
-5. Open the Automations pane in the Codex sidebar.
-6. Create a recurring automation scheduled for `09:00` every day.
-7. Prefer running it in a background worktree.
-8. Copy the prompt from [`automation_prompt.md`](./automation_prompt.md).
-9. If you know your tasks database URL, append it to the prompt before saving the automation.
-10. Test the prompt once manually before enabling the recurring schedule.
-
-### What the automation should do
-
-The prompt in [`automation_prompt.md`](./automation_prompt.md) instructs Codex to:
-- research the last 24 hours of relevant news
-- summarize it in Traditional Chinese
-- inspect your Notion tasks database schema through MCP
-- create a Notion page with the required task properties
-- insert the summary and links into the page body
 
 ## Notes
 
