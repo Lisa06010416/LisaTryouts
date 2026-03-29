@@ -1,6 +1,6 @@
 # NotionDailyPage
 
-This experiment uses Codex app automation with Notion MCP to create a daily page inside a Notion tasks database.
+This experiment uses Codex app automation with Notion MCP to create a daily routing page inside a Notion tasks database.
 
 ## What It Does
 
@@ -8,19 +8,22 @@ The daily workflow:
 
 1. gathers recent news focused on Taiwan, the United States, and major global events
 2. filters for reliable economy, market, technology, and AI coverage
-3. generates a concise summary
-4. creates a new page in a Notion tasks database
+3. collects JPY/TWD and USD/TWD exchange rate information
+4. generates a concise summary with "Why it matters" and "Watch next" sections
+5. creates a new page in a Notion tasks database
+6. fills the page with a Mail section, an exchange rate section, and a news section
 
 Default title format:
 
 ```text
-Daily News at YYYY-MM-DD
+Daily Routing at YYYY-MM-DD
 ```
 
 Default Notion properties:
 
-- `start_date`: today's date
-- `engery`: `Low Energy`
+- `Title`: `Daily News a {today}`
+- `Start Date`: today's date
+- `Energy`: `Low Energy`
 - `Status`: `Next Action`
 - `Priority`: `Medium Priority`
 
