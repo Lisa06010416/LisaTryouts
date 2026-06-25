@@ -1,0 +1,28 @@
+[project]
+name = "mini-research-agent"
+version = "0.1.0"
+description = "Mini research agent experiment using LangChain, LangGraph, and LangSmith"
+authors = [{name = "Lisa"}]
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=1.0.0",
+    "langchain-core>=1.0.0",
+    "langchain-openai>=1.0.0",
+    "langgraph>=1.0.0",
+    "langsmith>=0.4.0",
+    "python-dotenv>=1.0.0",
+    "tavily-python>=0.5.0",
+    "typing-extensions>=4.12.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["mini_research_agent"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
