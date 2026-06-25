@@ -4,11 +4,13 @@
 
 This experiment implements a small research agent to exercise the LangChain, LangGraph, and LangSmith stack end to end.
 
-- LangChain: prompt composition, structured output, and tool binding inside graph nodes.
-- LangGraph: typed state, conditional routing, cycles, checkpointing, and human-in-the-loop interrupts.
+- LangChain: prompt composition, structured output, and tool binding inside agent steps.
+- LangGraph: V2 typed state, conditional routing, cycles, checkpointing, and human-in-the-loop interrupts.
 - LangSmith: tracing configuration plus evaluation entry points.
 
-The default execution mode is deterministic mock mode, so the graph can be tested without external API calls. Set `OPENAI_API_KEY` to run with a real OpenAI chat model, and set `LANGCHAIN_API_KEY` to send traces/evaluations to LangSmith.
+V1 is intentionally implemented without LangGraph as a plain Python orchestration baseline. V2 uses LangGraph to show where graph state, cycles, interrupts, and checkpointing start to pay off.
+
+The default execution mode is deterministic mock mode, so the agent can be tested without external API calls. Set `OPENAI_API_KEY` to run with a real OpenAI chat model, and set `LANGCHAIN_API_KEY` to send traces/evaluations to LangSmith.
 
 ## Setup
 
@@ -61,9 +63,9 @@ uv run python -m mini_research_agent.v1.run --real "Who is the CEO of Apple?"
 ## Structure
 
 - `mini_research_agent/common/`: environment, LLM factory, search tool, and evaluator helpers.
-- `mini_research_agent/v1/`: basic classify -> optional search -> answer graph.
+- `mini_research_agent/v1/`: basic classify -> optional search -> answer flow without LangGraph.
 - `mini_research_agent/v2/`: multi-turn graph with clarification, reflection, retry cycle, and checkpointing.
-- `tests/`: deterministic smoke tests for routing and graph execution.
+- `tests/`: deterministic smoke tests for routing and agent execution.
 
 ## Notes
 
