@@ -33,6 +33,10 @@ class MockChatModel(BaseChatModel):
 
     def _answer(self, prompt: str) -> str:
         lower_prompt = prompt.lower()
+        if "mock ai news" in lower_prompt:
+            return "Mock AI News reports that frontier model providers are focusing on agent reliability, evaluation, and observability."
+        if "mock company fact" in lower_prompt:
+            return "Apple's CEO is Tim Cook, according to the provided company fact."
         if "latest ai news" in lower_prompt:
             return "Current AI news changes quickly, so I would search before answering."
         if "ceo of apple" in lower_prompt:
@@ -54,7 +58,7 @@ class MockChatModel(BaseChatModel):
                 phrase in text
                 for phrase in ("latest", "today", "current", "news", "ceo", "recent", "2026")
             )
-            is_ambiguous = any(
+            is_ambiguous = "clarification:" not in text and any(
                 re.search(pattern, text)
                 for pattern in (r"\bit\b", r"\bthis\b", r"\bthat thing\b", r"\bhelp me with it\b")
             )

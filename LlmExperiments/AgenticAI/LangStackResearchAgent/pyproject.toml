@@ -1,13 +1,14 @@
 [project]
 name = "lang-stack-research-agent"
 version = "0.1.0"
-description = "Mini research agent experiment using LangChain, LangGraph, and LangSmith"
+description = "Research agent experiment using LangChain, LangGraph, LangSmith, and Langfuse"
 authors = [{name = "Lisa"}]
 requires-python = ">=3.11"
 dependencies = [
     "langchain>=1.0.0",
     "langchain-core>=1.0.0",
     "langchain-openai>=1.0.0",
+    "langfuse>=4.0.0",
     "langgraph>=1.0.0",
     "langsmith>=0.4.0",
     "python-dotenv>=1.0.0",

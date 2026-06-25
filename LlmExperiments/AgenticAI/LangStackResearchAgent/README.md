@@ -7,6 +7,7 @@ This experiment implements a small research agent to exercise the LangChain, Lan
 - LangChain: prompt composition, structured output, and tool binding inside agent steps.
 - LangGraph: V2 typed state, conditional routing, cycles, checkpointing, and human-in-the-loop interrupts.
 - LangSmith: tracing configuration plus evaluation entry points.
+- Langfuse: V3 experiment runner and evaluator scores for routing, answer quality, grounding, clarification, and reflection.
 
 V1 is intentionally implemented without LangGraph as a plain Python orchestration baseline. V2 uses LangGraph to show where graph state, cycles, interrupts, and checkpointing start to pay off.
 
@@ -24,6 +25,9 @@ Optional `.env` values:
 OPENAI_API_KEY=your_openai_api_key
 LANGCHAIN_API_KEY=your_langsmith_api_key
 LANGCHAIN_PROJECT=lang-stack-research-agent
+LANGFUSE_PUBLIC_KEY=your_langfuse_public_key
+LANGFUSE_SECRET_KEY=your_langfuse_secret_key
+LANGFUSE_HOST=https://cloud.langfuse.com
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
@@ -52,6 +56,13 @@ Run local evaluators:
 ```bash
 uv run python -m lang_stack_research_agent.v1.evaluate
 uv run python -m lang_stack_research_agent.v2.evaluate
+uv run python -m lang_stack_research_agent.v3.evaluate
+```
+
+Send the V3 experiment to Langfuse:
+
+```bash
+uv run python -m lang_stack_research_agent.v3.evaluate --langfuse
 ```
 
 To run with real LLM calls:
@@ -65,6 +76,7 @@ uv run python -m lang_stack_research_agent.v1.run --real "Who is the CEO of Appl
 - `lang_stack_research_agent/common/`: environment, LLM factory, search tool, and evaluator helpers.
 - `lang_stack_research_agent/v1/`: basic classify -> optional search -> answer flow without LangGraph.
 - `lang_stack_research_agent/v2/`: multi-turn graph with clarification, reflection, retry cycle, and checkpointing.
+- `lang_stack_research_agent/v3/`: Langfuse experiment runner with five evaluator scores.
 - `tests/`: deterministic smoke tests for routing and agent execution.
 
 ## Notes
@@ -72,3 +84,4 @@ uv run python -m lang_stack_research_agent.v1.run --real "Who is the CEO of Appl
 - The search tool uses Tavily when `TAVILY_API_KEY` is present. Otherwise it returns deterministic sample snippets for learning and tests.
 - LangSmith tracing is enabled only when `LANGCHAIN_API_KEY` is present.
 - LangSmith dataset-based evaluation is intentionally kept behind an explicit `--langsmith` flag because it needs a configured LangSmith workspace.
+- Langfuse upload is intentionally kept behind an explicit `--langfuse` flag. Without that flag, V3 runs the same evaluators locally.
