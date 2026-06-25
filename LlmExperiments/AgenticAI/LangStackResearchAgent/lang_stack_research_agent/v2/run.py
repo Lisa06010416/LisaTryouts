@@ -5,13 +5,13 @@ import uuid
 
 from langgraph.types import Command
 
-from mini_research_agent.common.config import load_settings
-from mini_research_agent.common.llm import create_llm
-from mini_research_agent.v2.agent import build_graph
+from lang_stack_research_agent.common.config import load_settings
+from lang_stack_research_agent.common.llm import create_llm
+from lang_stack_research_agent.v2.agent import build_graph
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the V2 mini research agent.")
+    parser = argparse.ArgumentParser(description="Run the V2 lang stack research agent.")
     parser.add_argument("question", nargs="?", default="Latest AI news today?")
     parser.add_argument("--real", action="store_true", help="Use ChatOpenAI instead of the deterministic mock model.")
     args = parser.parse_args()

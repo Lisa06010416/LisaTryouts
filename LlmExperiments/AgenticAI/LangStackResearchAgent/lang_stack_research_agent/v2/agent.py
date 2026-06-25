@@ -6,14 +6,14 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
-from mini_research_agent.v2.nodes import (
+from lang_stack_research_agent.v2.nodes import (
     clarify_node,
     classify_node,
     reflect_node,
     search_node,
     synthesize_node,
 )
-from mini_research_agent.v2.state import AgentState
+from lang_stack_research_agent.v2.state import AgentState
 
 
 def route_after_classify(state: AgentState) -> Literal["clarify", "search", "synthesize"]:

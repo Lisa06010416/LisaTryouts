@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import argparse
 
-from mini_research_agent.common.config import load_settings
-from mini_research_agent.common.llm import create_llm
-from mini_research_agent.v1.agent import invoke
+from lang_stack_research_agent.common.config import load_settings
+from lang_stack_research_agent.common.llm import create_llm
+from lang_stack_research_agent.v1.agent import invoke
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the V1 mini research agent.")
+    parser = argparse.ArgumentParser(description="Run the V1 lang stack research agent.")
     parser.add_argument("question", nargs="?", default="Latest AI news today?")
     parser.add_argument("--real", action="store_true", help="Use ChatOpenAI instead of the deterministic mock model.")
     args = parser.parse_args()

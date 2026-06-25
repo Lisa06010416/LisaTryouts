@@ -1,4 +1,4 @@
-# Mini Research Agent
+# LangStack Research Agent
 
 ## Purpose
 
@@ -23,7 +23,7 @@ Optional `.env` values:
 ```text
 OPENAI_API_KEY=your_openai_api_key
 LANGCHAIN_API_KEY=your_langsmith_api_key
-LANGCHAIN_PROJECT=mini-research-agent
+LANGCHAIN_PROJECT=lang-stack-research-agent
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
@@ -32,13 +32,13 @@ TAVILY_API_KEY=your_tavily_api_key
 Run V1:
 
 ```bash
-uv run python -m mini_research_agent.v1.run "Latest AI news today?"
+uv run python -m lang_stack_research_agent.v1.run "Latest AI news today?"
 ```
 
 Run V2:
 
 ```bash
-uv run python -m mini_research_agent.v2.run "Latest AI news today?"
+uv run python -m lang_stack_research_agent.v2.run "Latest AI news today?"
 ```
 
 Run local smoke tests:
@@ -50,21 +50,21 @@ uv run pytest
 Run local evaluators:
 
 ```bash
-uv run python -m mini_research_agent.v1.evaluate
-uv run python -m mini_research_agent.v2.evaluate
+uv run python -m lang_stack_research_agent.v1.evaluate
+uv run python -m lang_stack_research_agent.v2.evaluate
 ```
 
 To run with real LLM calls:
 
 ```bash
-uv run python -m mini_research_agent.v1.run --real "Who is the CEO of Apple?"
+uv run python -m lang_stack_research_agent.v1.run --real "Who is the CEO of Apple?"
 ```
 
 ## Structure
 
-- `mini_research_agent/common/`: environment, LLM factory, search tool, and evaluator helpers.
-- `mini_research_agent/v1/`: basic classify -> optional search -> answer flow without LangGraph.
-- `mini_research_agent/v2/`: multi-turn graph with clarification, reflection, retry cycle, and checkpointing.
+- `lang_stack_research_agent/common/`: environment, LLM factory, search tool, and evaluator helpers.
+- `lang_stack_research_agent/v1/`: basic classify -> optional search -> answer flow without LangGraph.
+- `lang_stack_research_agent/v2/`: multi-turn graph with clarification, reflection, retry cycle, and checkpointing.
 - `tests/`: deterministic smoke tests for routing and agent execution.
 
 ## Notes

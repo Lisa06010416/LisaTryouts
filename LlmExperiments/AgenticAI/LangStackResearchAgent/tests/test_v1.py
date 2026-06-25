@@ -1,6 +1,6 @@
-from mini_research_agent.common.config import load_settings
-from mini_research_agent.common.llm import create_llm
-from mini_research_agent.v1.agent import invoke
+from lang_stack_research_agent.common.config import load_settings
+from lang_stack_research_agent.common.llm import create_llm
+from lang_stack_research_agent.v1.agent import invoke
 
 
 def test_v1_routes_direct_question_without_search():

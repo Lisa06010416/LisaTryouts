@@ -6,8 +6,8 @@ from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-from mini_research_agent.common.tools import web_search
-from mini_research_agent.v1.state import AgentState
+from lang_stack_research_agent.common.tools import web_search
+from lang_stack_research_agent.v1.state import AgentState
 
 
 class ClassifyResult(BaseModel):

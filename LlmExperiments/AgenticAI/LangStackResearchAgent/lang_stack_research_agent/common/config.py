@@ -20,7 +20,7 @@ def load_settings() -> Settings:
     settings = Settings(
         openai_api_key=os.getenv("OPENAI_API_KEY"),
         langchain_api_key=os.getenv("LANGCHAIN_API_KEY"),
-        langchain_project=os.getenv("LANGCHAIN_PROJECT", "mini-research-agent"),
+        langchain_project=os.getenv("LANGCHAIN_PROJECT", "lang-stack-research-agent"),
         tavily_api_key=os.getenv("TAVILY_API_KEY"),
         model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
     )

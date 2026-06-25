@@ -1,5 +1,5 @@
 [project]
-name = "mini-research-agent"
+name = "lang-stack-research-agent"
 version = "0.1.0"
 description = "Mini research agent experiment using LangChain, LangGraph, and LangSmith"
 authors = [{name = "Lisa"}]
@@ -21,7 +21,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["mini_research_agent"]
+packages = ["lang_stack_research_agent"]
 
 [build-system]
 requires = ["hatchling"]

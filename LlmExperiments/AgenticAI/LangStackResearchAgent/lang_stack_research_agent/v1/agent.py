@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from langchain_core.language_models.chat_models import BaseChatModel
 
-from mini_research_agent.v1.nodes import answer_node, classify_node, search_node
-from mini_research_agent.v1.state import AgentState
+from lang_stack_research_agent.v1.nodes import answer_node, classify_node, search_node
+from lang_stack_research_agent.v1.state import AgentState
 
 
 def invoke(question: str, llm: BaseChatModel) -> AgentState:

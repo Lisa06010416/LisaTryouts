@@ -2,14 +2,14 @@ from __future__ import annotations
 
 import argparse
 
-from mini_research_agent.common.config import load_settings
-from mini_research_agent.common.evaluators import (
+from lang_stack_research_agent.common.config import load_settings
+from lang_stack_research_agent.common.evaluators import (
     clarification_accuracy,
     reflection_quality,
     routing_accuracy,
 )
-from mini_research_agent.common.llm import create_llm
-from mini_research_agent.v2.agent import invoke
+from lang_stack_research_agent.common.llm import create_llm
+from lang_stack_research_agent.v2.agent import invoke
 
 EXAMPLES = [
     {
@@ -45,7 +45,7 @@ def run_local_evaluation(use_real: bool = False) -> list[dict[str, object]]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Evaluate the V2 mini research agent.")
+    parser = argparse.ArgumentParser(description="Evaluate the V2 lang stack research agent.")
     parser.add_argument("--real", action="store_true")
     args = parser.parse_args()
 

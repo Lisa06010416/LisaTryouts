@@ -9,7 +9,7 @@ from langchain_core.outputs import ChatGeneration, ChatResult
 from langchain_core.runnables import RunnableLambda
 from pydantic import BaseModel
 
-from mini_research_agent.common.config import Settings
+from lang_stack_research_agent.common.config import Settings
 
 StructuredModel = TypeVar("StructuredModel", bound=BaseModel)
 

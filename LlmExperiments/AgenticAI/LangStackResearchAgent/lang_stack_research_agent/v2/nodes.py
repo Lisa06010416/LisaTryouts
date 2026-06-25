@@ -8,8 +8,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langgraph.types import interrupt
 
-from mini_research_agent.common.tools import web_search
-from mini_research_agent.v2.state import AgentState
+from lang_stack_research_agent.common.tools import web_search
+from lang_stack_research_agent.v2.state import AgentState
 
 
 class ClassifyResult(BaseModel):

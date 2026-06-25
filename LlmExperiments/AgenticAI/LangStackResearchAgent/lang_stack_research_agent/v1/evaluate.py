@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import argparse
 
-from mini_research_agent.common.config import load_settings
-from mini_research_agent.common.evaluators import routing_accuracy
-from mini_research_agent.common.llm import create_llm
-from mini_research_agent.v1.agent import invoke
+from lang_stack_research_agent.common.config import load_settings
+from lang_stack_research_agent.common.evaluators import routing_accuracy
+from lang_stack_research_agent.common.llm import create_llm
+from lang_stack_research_agent.v1.agent import invoke
 
 EXAMPLES = [
     {
@@ -47,7 +47,7 @@ def run_langsmith_evaluation(use_real: bool = False) -> None:
     settings = load_settings()
     llm = create_llm(settings, use_real=use_real)
     client = Client()
-    dataset_name = "mini-research-agent-v1"
+    dataset_name = "lang-stack-research-agent-v1"
 
     if not client.has_dataset(dataset_name=dataset_name):
         dataset = client.create_dataset(dataset_name=dataset_name)
@@ -62,7 +62,7 @@ def run_langsmith_evaluation(use_real: bool = False) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Evaluate the V1 mini research agent.")
+    parser = argparse.ArgumentParser(description="Evaluate the V1 lang stack research agent.")
     parser.add_argument("--real", action="store_true")
     parser.add_argument("--langsmith", action="store_true")
     args = parser.parse_args()
