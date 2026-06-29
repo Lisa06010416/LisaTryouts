@@ -65,6 +65,12 @@ Send the V3 experiment to Langfuse:
 uv run python -m lang_stack_research_agent.v3.evaluate --langfuse
 ```
 
+Send the V3 experiment to LangSmith:
+
+```bash
+uv run python -m lang_stack_research_agent.v3.evaluate --langsmith
+```
+
 To run with real LLM calls:
 
 ```bash

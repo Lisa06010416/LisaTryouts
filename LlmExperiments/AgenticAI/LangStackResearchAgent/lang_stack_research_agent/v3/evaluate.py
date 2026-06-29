@@ -154,15 +154,34 @@ def reflection_quality_evaluator(*, output: dict[str, Any], **kwargs: Any) -> Ev
     )
 
 
+EVALUATORS = [
+    routing_accuracy_evaluator,
+    answer_correctness_evaluator,
+    faithfulness_evaluator,
+    clarification_accuracy_evaluator,
+    reflection_quality_evaluator,
+]
+
+
+def as_langsmith_result(evaluation: Evaluation) -> dict[str, Any]:
+    return {
+        "key": evaluation.name,
+        "score": evaluation.value,
+        "comment": evaluation.comment,
+    }
+
+
+def make_langsmith_evaluator(evaluator: Any) -> Any:
+    def evaluate_case(outputs: dict[str, Any], reference_outputs: dict[str, Any]) -> dict[str, Any]:
+        evaluation = evaluator(output=outputs, expected_output=reference_outputs)
+        return as_langsmith_result(evaluation)
+
+    evaluate_case.__name__ = evaluator.__name__
+    return evaluate_case
+
+
 def run_local_evaluation(use_real: bool = False) -> list[dict[str, Any]]:
     rows = []
-    evaluators = [
-        routing_accuracy_evaluator,
-        answer_correctness_evaluator,
-        faithfulness_evaluator,
-        clarification_accuracy_evaluator,
-        reflection_quality_evaluator,
-    ]
     for example in EXAMPLES:
         output = run_agent_case(item=example, use_real=use_real)
         evaluations = [
@@ -172,7 +191,7 @@ def run_local_evaluation(use_real: bool = False) -> list[dict[str, Any]]:
                 expected_output=example["expected_output"],
                 metadata=example.get("metadata", {}),
             )
-            for evaluator in evaluators
+            for evaluator in EVALUATORS
         ]
         rows.append(
             {
@@ -185,6 +204,7 @@ def run_local_evaluation(use_real: bool = False) -> list[dict[str, Any]]:
 
 
 def run_langfuse_experiment(use_real: bool = False) -> Any:
+    load_settings()
     langfuse = get_client()
 
     def task(*, item: dict[str, Any], **kwargs: Any) -> dict[str, Any]:
@@ -196,14 +216,36 @@ def run_langfuse_experiment(use_real: bool = False) -> Any:
         description="Evaluate routing, correctness, groundedness, clarification, and reflection.",
         data=EXAMPLES,
         task=task,
-        evaluators=[
-            routing_accuracy_evaluator,
-            answer_correctness_evaluator,
-            faithfulness_evaluator,
-            clarification_accuracy_evaluator,
-            reflection_quality_evaluator,
-        ],
+        evaluators=EVALUATORS,
         max_concurrency=1,
+        metadata={"agent_version": "v3", "mode": "real" if use_real else "mock"},
+    )
+
+
+def run_langsmith_evaluation(use_real: bool = False) -> None:
+    from langsmith import Client, evaluate
+
+    load_settings()
+    client = Client()
+    dataset_name = "lang-stack-research-agent-v3"
+    examples = [
+        {
+            "inputs": example["input"],
+            "outputs": example["expected_output"],
+            "metadata": example.get("metadata", {}),
+        }
+        for example in EXAMPLES
+    ]
+
+    if not client.has_dataset(dataset_name=dataset_name):
+        dataset = client.create_dataset(dataset_name=dataset_name)
+        client.create_examples(dataset_id=dataset.id, examples=examples)
+
+    evaluate(
+        lambda inputs: run_agent_case(item={"input": inputs}, use_real=use_real),
+        data=dataset_name,
+        evaluators=[make_langsmith_evaluator(evaluator) for evaluator in EVALUATORS],
+        experiment_prefix="v3",
         metadata={"agent_version": "v3", "mode": "real" if use_real else "mock"},
     )
 
@@ -241,12 +283,18 @@ def content_terms(text: str) -> set[str]:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run V3 Langfuse-style evaluations.")
     parser.add_argument("--real", action="store_true")
-    parser.add_argument("--langfuse", action="store_true", help="Send experiment traces and scores to Langfuse.")
+    destination = parser.add_mutually_exclusive_group()
+    destination.add_argument("--langfuse", action="store_true", help="Send experiment traces and scores to Langfuse.")
+    destination.add_argument("--langsmith", action="store_true", help="Send experiment traces and scores to LangSmith.")
     args = parser.parse_args()
 
     if args.langfuse:
         result = run_langfuse_experiment(use_real=args.real)
         print(result.format())
+        return
+
+    if args.langsmith:
+        run_langsmith_evaluation(use_real=args.real)
         return
 
     for row in run_local_evaluation(use_real=args.real):
